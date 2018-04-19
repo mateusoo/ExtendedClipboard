@@ -1,0 +1,15 @@
+C:\Users\doman\source\repos\ExtendedClipboard\ExtendedClipboard\obj\Debug\ExtendedClipboard.csprojResolveAssemblyReference.cache
+C:\Users\doman\source\repos\ExtendedClipboard\ExtendedClipboard\obj\Debug\MainWindow.g.cs
+C:\Users\doman\source\repos\ExtendedClipboard\ExtendedClipboard\obj\Debug\App.g.cs
+C:\Users\doman\source\repos\ExtendedClipboard\ExtendedClipboard\obj\Debug\ExtendedClipboard_MarkupCompile.cache
+C:\Users\doman\source\repos\ExtendedClipboard\ExtendedClipboard\obj\Debug\ExtendedClipboard_MarkupCompile.lref
+C:\Users\doman\source\repos\ExtendedClipboard\ExtendedClipboard\bin\Debug\ExtendedClipboard.exe.config
+C:\Users\doman\source\repos\ExtendedClipboard\ExtendedClipboard\bin\Debug\ExtendedClipboard.exe
+C:\Users\doman\source\repos\ExtendedClipboard\ExtendedClipboard\bin\Debug\ExtendedClipboard.pdb
+C:\Users\doman\source\repos\ExtendedClipboard\ExtendedClipboard\obj\Debug\MainWindow.baml
+C:\Users\doman\source\repos\ExtendedClipboard\ExtendedClipboard\obj\Debug\ExtendedClipboard.g.resources
+C:\Users\doman\source\repos\ExtendedClipboard\ExtendedClipboard\obj\Debug\ExtendedClipboard.Properties.Resources.resources
+C:\Users\doman\source\repos\ExtendedClipboard\ExtendedClipboard\obj\Debug\ExtendedClipboard.csproj.GenerateResource.cache
+C:\Users\doman\source\repos\ExtendedClipboard\ExtendedClipboard\obj\Debug\ExtendedClipboard.csproj.CoreCompileInputs.cache
+C:\Users\doman\source\repos\ExtendedClipboard\ExtendedClipboard\obj\Debug\ExtendedClipboard.exe
+C:\Users\doman\source\repos\ExtendedClipboard\ExtendedClipboard\obj\Debug\ExtendedClipboard.pdb
