@@ -148,6 +148,19 @@ namespace ExtendedClipboard
             }
         }
 
+        //Overloaded function to rewrite not all elements, useful to avoid duplicates
+        private void rewrite(int indexMax)
+        {
+            for(int i = indexMax; i > 0; i--)
+            {
+                labelList[i].Content = labelList[i - 1].Content;
+                buttonList[i].Content = buttonList[i - 1].Content;
+                imageArray[i] = imageArray[i - 1];
+            }
+            if (indexMax < 5)
+                itemsAdded--;
+        }
+
         //Sets Buttons to Visible after copying next image
         //TODO: Separate function for setting visibility of button if not all buttons are visible
         //EDIT: Tried to do it
@@ -170,21 +183,13 @@ namespace ExtendedClipboard
 
         private void buttonClicked(int numberOfButton)
         {
-            if (!isDuplicateExcept(numberOfButton))
-            {
                 if (((string)buttonList[numberOfButton].Content == "Copy") && (labelList[0].Content != labelList[numberOfButton].Content))
                 {
                     string temp = (string)labelList[numberOfButton].Content;
                     Clipboard.SetText(temp);
-                    rewrite();
+                    rewrite(numberOfButton);
                     labelList[0].Content = temp;
                     buttonConfig();
-
-                }
-                //User want copy content which already is on the top
-                else if (((string)buttonList[numberOfButton].Content == "Copy") || (labelList[0].Content == labelList[numberOfButton].Content))
-                {
-                    //TODO: Inform that there is no need to copy
                 }
                 else if ((string)buttonList[numberOfButton].Content == "Zoom")  //zoom
                 {
@@ -196,10 +201,8 @@ namespace ExtendedClipboard
                     window.SizeToContent = SizeToContent.Manual;
                     window.Show();
                 }
-            }
-            
-
         }
+
         //Checks if item in clipboard is already stored to avoid duplicates (Useful in future?)
         private bool isDuplicate() {
             for (int i = 0; i < itemsAdded; i++) {
