@@ -170,18 +170,19 @@ namespace ExtendedClipboard
 
         private void buttonClicked(int numberOfButton)
         {
-            //TODO: Resolve architecture. Do we want duplicates in our program?
-            if (isDuplicate(0))
+            if (!isDuplicateExcept(numberOfButton))
             {
-                if (((string)buttonList[numberOfButton].Content == "Copy") && (numberOfButton != 0) && (labelList[0].Content != labelList[numberOfButton].Content))
+                if (((string)buttonList[numberOfButton].Content == "Copy") && (labelList[0].Content != labelList[numberOfButton].Content))
                 {
                     string temp = (string)labelList[numberOfButton].Content;
+                    Clipboard.SetText(temp);
                     rewrite();
                     labelList[0].Content = temp;
                     buttonConfig();
+
                 }
                 //User want copy content which already is on the top
-                else if (((string)buttonList[numberOfButton].Content == "Copy") && ((numberOfButton == 0) || (labelList[0].Content == labelList[numberOfButton].Content)))
+                else if (((string)buttonList[numberOfButton].Content == "Copy") || (labelList[0].Content == labelList[numberOfButton].Content))
                 {
                     //TODO: Inform that there is no need to copy
                 }
@@ -196,6 +197,7 @@ namespace ExtendedClipboard
                     window.Show();
                 }
             }
+            
 
         }
         //Checks if item in clipboard is already stored to avoid duplicates (Useful in future?)
@@ -211,8 +213,8 @@ namespace ExtendedClipboard
             return false;
         }
 
-        //Overloaded function to check if there is a duplicate on given position
-        private bool isDuplicate(int position)
+        //Overloaded function to check if there is a duplicate except on given position
+        private bool isDuplicateExcept(int position)
         {
             for (int i = 0; i < itemsAdded; i++)
             {
