@@ -24,7 +24,7 @@ namespace ExtendedClipboard
         DispatcherTimer timer;
         List<Label> labelList;
         List<Button> buttonList;
-        int ButtonsVisible = 0;
+        int itemsAdded = 0;
         Image[] imageArray;
 
         public MainWindow()
@@ -59,22 +59,37 @@ namespace ExtendedClipboard
             buttonList.Add(button5);
 
 
+            //Add content from clipboard to first place at startup
+            if (Clipboard.ContainsData(DataFormats.Text))
+            {
+                copyText();
+            }
+            else if (Clipboard.ContainsImage())
+            {
+                copyImage();
+            }
+            else {
+                rewrite();
+                labelList[0].Content = "Extended Clipboard ver 0.1";
+
+                buttonConfig();
+            }
             Clipboard.Clear();
+
         }
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-
-            if(Clipboard.ContainsData(DataFormats.Text))
-            {
-                copyText();
+            if (!isDuplicate()) {
+                if (Clipboard.ContainsData(DataFormats.Text))
+                {
+                    copyText();
+                }
+                else if (Clipboard.ContainsImage())
+                {
+                    copyImage();
+                }
             }
-            else if(Clipboard.ContainsImage())
-            {
-                copyImage();
-            }
-            //TODO: Find a way not to clear clipboard everytime (buffor maybe?)
-            Clipboard.Clear();
 
         }
 
@@ -119,6 +134,7 @@ namespace ExtendedClipboard
             labelList[0].Content = image;
             imageArray[0] = image;
             buttonConfig();
+            Clipboard.Clear();
         }
 
         //Makes first Label free when there is a need to add a new content
@@ -145,40 +161,71 @@ namespace ExtendedClipboard
                 buttonList[0].Content = "Zoom";
             }
 
-            if (ButtonsVisible < 5)
+            if (itemsAdded < 5)
             {
-                buttonList[ButtonsVisible].Visibility = Visibility.Visible;
-                ButtonsVisible++;
+                buttonList[itemsAdded].Visibility = Visibility.Visible;
+                itemsAdded++;
             }
         }
 
         private void buttonClicked(int numberOfButton)
         {
-            if(((string)buttonList[numberOfButton].Content == "Copy") && (numberOfButton != 0) && (labelList[0].Content != labelList[numberOfButton].Content))
+            //TODO: Resolve architecture. Do we want duplicates in our program?
+            if (isDuplicate(0))
             {
-                string temp = (string)labelList[numberOfButton].Content;
-                rewrite();
-                labelList[0].Content = temp;
-                buttonConfig();
+                if (((string)buttonList[numberOfButton].Content == "Copy") && (numberOfButton != 0) && (labelList[0].Content != labelList[numberOfButton].Content))
+                {
+                    string temp = (string)labelList[numberOfButton].Content;
+                    rewrite();
+                    labelList[0].Content = temp;
+                    buttonConfig();
+                }
+                //User want copy content which already is on the top
+                else if (((string)buttonList[numberOfButton].Content == "Copy") && ((numberOfButton == 0) || (labelList[0].Content == labelList[numberOfButton].Content)))
+                {
+                    //TODO: Inform that there is no need to copy
+                }
+                else if ((string)buttonList[numberOfButton].Content == "Zoom")  //zoom
+                {
+                    var window = new ZoomWindow();      //new Window with zoomed image
+                    Image image = imageArray[numberOfButton];
+                    window.Image1.Height = image.Height;
+                    window.Image1.Width = image.Width;
+                    window.Image1.Source = image.Source;
+                    window.SizeToContent = SizeToContent.Manual;
+                    window.Show();
+                }
             }
-            //User want copy content which already is on the top
-            else if(((string)buttonList[numberOfButton].Content == "Copy") && ((numberOfButton == 0) || (labelList[0].Content == labelList[numberOfButton].Content)))    
-            {
-                //TODO: Inform that there is no need to copy
-            }
-            else if((string)buttonList[numberOfButton].Content == "Zoom")  //zoom
-            {
-                var window = new ZoomWindow();      //new Window with zoomed image
-                Image image = imageArray[numberOfButton];
-                window.Image1.Height = image.Height;
-                window.Image1.Width = image.Width;
-                window.Image1.Source = image.Source;
-                window.SizeToContent = SizeToContent.Manual;
-                window.Show();
-            }
-
 
         }
+        //Checks if item in clipboard is already stored to avoid duplicates (Useful in future?)
+        private bool isDuplicate() {
+            for (int i = 0; i < itemsAdded; i++) {
+                if (Clipboard.GetText().ToString() == labelList[i].Content.ToString()) {
+                    return true;
+                }
 
+                //TODO: Comparing images. (type conflict)
+            
+            }
+            return false;
+        }
+
+        //Overloaded function to check if there is a duplicate on given position
+        private bool isDuplicate(int position)
+        {
+            for (int i = 0; i < itemsAdded; i++)
+            {
+                if (position!=i) {
+                    if (labelList[position].Content.ToString() == labelList[i].Content.ToString())
+                    {
+                        return true;
+                    }
+                    //TODO: Comparing images. (type conflict)
+                }
+
+            }
+            return false;
+        }
     }
 }
