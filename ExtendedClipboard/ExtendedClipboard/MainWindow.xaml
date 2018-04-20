@@ -7,10 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="340" Width="400">
     <Grid Background="Gray">
-        <Label Name="Label1" HorizontalAlignment="Left" Height="50" Margin="0,10,0,0" VerticalAlignment="Top" Width="400" Background="White"/>
-        <Label Name="Label2" HorizontalAlignment="Left" Height="50" Margin="0,70,0,0" VerticalAlignment="Top" Width="400" Background="White"/>
-        <Label Name="Label3" HorizontalAlignment="Left" Height="50" Margin="0,130,0,0" VerticalAlignment="Top" Width="400" Background="White"/>
-        <Label Name="Label4" HorizontalAlignment="Left" Height="50" Margin="0,190,0,0" VerticalAlignment="Top" Width="400" Background="White"/>
-        <Label Name="Label5" HorizontalAlignment="Left" Height="50" Margin="0,250,0,0" VerticalAlignment="Top" Width="400" Background="White"/>
+        <Label Name="Label1" HorizontalAlignment="Left" Height="50" Margin="0,10,0,0" VerticalAlignment="Top" Width="302" Background="White"/>
+        <Label Name="Label2" HorizontalAlignment="Left" Height="50" Margin="0,70,0,0" VerticalAlignment="Top" Width="302" Background="White"/>
+        <Label Name="Label3" HorizontalAlignment="Left" Height="50" Margin="0,130,0,0" VerticalAlignment="Top" Width="302" Background="White"/>
+        <Label Name="Label4" HorizontalAlignment="Left" Height="50" Margin="0,190,0,0" VerticalAlignment="Top" Width="302" Background="White"/>
+        <Label Name="Label5" HorizontalAlignment="Left" Height="50" Margin="0,250,0,0" VerticalAlignment="Top" Width="302" Background="White"/>
+        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="307,10,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="button2" Content="Button" HorizontalAlignment="Left" Margin="307,70,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="button3" Content="Button" HorizontalAlignment="Left" Margin="307,130,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="button4" Content="Button" HorizontalAlignment="Left" Margin="307,190,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="button5" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="307,250,0,0"/>
     </Grid>
 </Window>

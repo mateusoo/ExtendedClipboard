@@ -23,6 +23,8 @@ namespace ExtendedClipboard
     {
         DispatcherTimer timer;
         List<Label> labelList;
+        List<Button> buttonList;
+        int ButtonsVisible = 0;
 
         public MainWindow()
         {
@@ -39,30 +41,78 @@ namespace ExtendedClipboard
             labelList.Add(Label4);
             labelList.Add(Label5);
 
+
+            //Adds buttons to list and hides them
+            buttonList = new List<Button>();
+            button1.Visibility = Visibility.Hidden;
+            buttonList.Add(button1);
+            button2.Visibility = Visibility.Hidden;
+            buttonList.Add(button2);
+            button3.Visibility = Visibility.Hidden;
+            buttonList.Add(button3);
+            button4.Visibility = Visibility.Hidden;
+            buttonList.Add(button4);
+            button5.Visibility = Visibility.Hidden;
+            buttonList.Add(button5);
+
+            //TODO: Add functionality to buttons
+
             Clipboard.Clear();
         }
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
+
             if(Clipboard.ContainsData(DataFormats.Text))
             {
                 for(int i = labelList.Count-1; i > 0; i--)
                 {
                     labelList[i].Content = labelList[i - 1].Content;
+                    buttonList[i].Content = buttonList[i - 1].Content;
                 }
                 labelList[0].Content = Clipboard.GetText();
+                if (labelList[0].Content.GetType() == typeof(string)) {
+                    buttonList[0].Content = "Copy";
+                }
+
+                //Sets Buttons to Visible after copying next text
+                //TODO: Separate function for setting visibility of button if not all buttons are visible
+                if (ButtonsVisible < 5)
+                {
+                    buttonList[ButtonsVisible].Visibility = Visibility.Visible;
+                    ButtonsVisible++;
+                }
+
             }
             else if(Clipboard.ContainsImage())
             {
                 for (int i = labelList.Count - 1; i > 0; i--)
                 {
                     labelList[i].Content = labelList[i - 1].Content;
+                    buttonList[i].Content = buttonList[i - 1].Content;
                 }
                 Image image = new Image();
                 image.Source = Clipboard.GetImage();
                 labelList[0].Content = image;
+                if (labelList[0].Content.GetType() == typeof(Image))
+                {
+                    buttonList[0].Content = "Zoom";
+                }
+
+                //Sets Buttons to Visible after copying next image
+                //TODO: Separate function for setting visibility of button if not all buttons are visible
+                if (ButtonsVisible < 5)
+                {
+                    buttonList[ButtonsVisible].Visibility = Visibility.Visible;
+                    ButtonsVisible++;
+                }
+
             }
+            //TODO: Find a way not to clear clipboard everytime (buffor maybe?)
             Clipboard.Clear();
+
+
+
 
         }
     }
